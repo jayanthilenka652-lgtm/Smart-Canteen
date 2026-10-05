@@ -15,7 +15,11 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-const allowedOrigins = ['http://localhost:5173', process.env.CLIENT_URL].filter(Boolean);
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://smart-canteen-five-eta.vercel.app',
+  process.env.CLIENT_URL
+].filter(Boolean);
 app.use(cors({
   origin: allowedOrigins,
   credentials: true
