@@ -15,7 +15,11 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-app.use(cors({ origin: '*' }));
+const allowedOrigins = ['http://localhost:5173', process.env.CLIENT_URL].filter(Boolean);
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/auth', require('./routes/auth'));
