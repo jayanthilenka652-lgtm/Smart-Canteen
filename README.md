@@ -122,13 +122,23 @@ For quick evaluation, click the demo buttons on the Login page:
 
 ---
 
-## 🌐 Deployment Ready (Vercel / Render)
+## 🌐 Deploying to Render
 
-1. **Client Deployment (Vercel):**
-   - Root directory: `client`
-   - Build command: `npm run build`
-   - Output directory: `dist`
-2. **Server Deployment (Render / Vercel Serverless):**
-   - Build command: `npm install`
-   - Start command: `node server/server.js`
-   - Environment variables: Set `MONGO_URI` and `JWT_SECRET` in server environment settings.
+This repository includes a Render Blueprint (`render.yaml`) that deploys the API and
+the built React client as one web service. In Render, create a Blueprint from the
+Git repository and set the required `MONGO_URI` and `JWT_SECRET` values when
+prompted. Render supplies `PORT` automatically; do not run `npm run dev` as the
+production start command.
+
+For a manually configured Render Web Service, use:
+
+- **Build command:** `npm run build:render`
+- **Start command:** `npm start`
+- **Health check path:** `/api/health`
+- **Environment variables:** `MONGO_URI`, `JWT_SECRET`
+
+The build command installs the root and client lockfiles and builds Vite; the
+Express server serves `client/dist` in production. For separate Vercel frontend
+hosting, set the Vercel project root to `client`, build with `npm run build`, and
+publish `dist`; deploy the API separately and configure its allowed client origin
+as needed.

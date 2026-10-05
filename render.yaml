@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: smart-canteen
+    runtime: node
+    buildCommand: npm run build:render
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false

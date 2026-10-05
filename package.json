@@ -8,7 +8,8 @@
     "server": "nodemon server/server.js",
     "client": "npm run dev --prefix client",
     "dev": "node scripts/dev.js",
-    "build": "npm run build --prefix client"
+    "build": "npm run build --prefix client",
+    "build:render": "npm ci && npm ci --prefix client && npm run build"
   },
   "keywords": ["mern", "canteen", "pre-order", "react", "node", "express", "mongodb"],
   "author": "Lenka Jayanthi",

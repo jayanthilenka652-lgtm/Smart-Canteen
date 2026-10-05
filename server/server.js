@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
 dotenv.config();
 
 const mongoose = require('mongoose');
@@ -37,6 +39,15 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date()
   });
 });
+
+const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api/')) return next();
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
+  });
+}
 
 app.get('/', (req, res) => {
   res.send('Smart Canteen Pre-Order System API Service is Running cleanly.');
